@@ -1,0 +1,54 @@
+{
+    "License Plates": {
+        "Programme Info": {
+            "Programme Usage": "python -m lic_plates [-v | --version] [-h | --help] <command> [<args>]",
+            "Programme Description": "License Plates Tracker provides functions to work with license plates and its patterns, \nlike calculating the amount of combinations possible for a specific type of plates, \nor getting the nth license plate for a pattern given",
+            "Programme Epilog": "The logic behind this programme asummes that registering of license plates \nis done in the corresponding order. If this is not the case, then \nresults may not be the ones expected"
+        },
+        "Function Help Strings": {
+            "combinations": "usage: lic_plates combinations <pattern>",
+            "get_plate_index": "usage: lic_plates get_plate_index <plate>",
+            "get_plate": "usage: lic_plates get_plate <pattern> <n>",
+            "matches_pattern": "usage: lic_plates matches_pattern <pattern> <plate>",
+            "get_pattern": "usage: lic_plates get_pattern <plate>",
+            "max_plate": "usage: lic_plates max_plate <pattern>",
+            "min_plate": "usage: lic_plates min_plate <pattern>"
+        },
+        "Std Plate Patterns": {
+            "A": "C3D2C",
+            "AD": "C4D",
+            "AR1": "3C3D",
+            "AR2": "2C3D2C",
+            "BE": "D3C3D",
+            "BR1": "3C4D",
+            "BR2": "3CDC2D",
+            "D": "4C3D",
+            "DK": "2C5D",
+            "E": "4D3C",
+            "F": "2C3D2C",
+            "FIN": "3C3D",
+            "GB": "2C2D3C",
+            "GR": "3C4D",
+            "HR": "2C3D2C",
+            "IT": "2C3D2C",
+            "N": "2C5D",
+            "NL": "2C3DC",
+            "P": "4D2C",
+            "S": "3C3D",
+            "US-CA": "D3C3D",
+            "US-FL": "4C2D",
+            "US-ILL": "2D5C",
+            "US-MA": "4D",
+            "US-MS": "3C3D",
+            "US-NJ": "C2D3C",
+            "US-NV": "3DC2D",
+            "US-NY": "3C4D",
+            "US-OH": "3C4D",
+            "US-OR": "3D3C",
+            "US-PA": "3C4D",
+            "US-TX": "3C4D",
+            "US-VA": "3C4D",
+            "US-WA": "3C4D"
+        }
+    }
+}
