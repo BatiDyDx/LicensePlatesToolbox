@@ -39,10 +39,11 @@ parser.add_argument(
 
 
 def main() -> None:
-    user_input = parser.parse_args()
-    args = vars(user_input)
-    return
-
+    #user_input = parser.parse_args()
+    #args = vars(user_input)
+    
+    # Test Warnings
+    print(lp.get_plate(lp.STD_PATTERNS["AR1"], lp.combinations(lp.STD_PATTERNS["AR1"]) + 1))
 
 if __name__ == "__main__":
     main()

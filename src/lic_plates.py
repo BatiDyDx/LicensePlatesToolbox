@@ -7,6 +7,8 @@ from functools import wraps
 from logging import warning
 import json
 import pathlib
+from rich import console
+from rich.console import Console
 
 # English alphabet
 ALPHA: List[str] = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
@@ -184,7 +186,8 @@ def get_plate(pattern: str, n: int) -> str:
     representing the type of the plate, and returns the nth plate.
     """
     if n > combinations(pattern):
-        warning("The input n exceeded the number of combinations possible with the pattern given")
+        console = Console(stderr=True, style="red")
+        console.print("WARNING: The input n exceeded the number of combinations possible with the pattern given")
         return max_plate(pattern)
     
     n -= 1
