@@ -1,13 +1,15 @@
 import argparse
 import json
 import pathlib
-import lic_plates as lp
+from rich.console import Console
+from lic_plates import *
+from __init__ import __version__
 
 PATH = pathlib.Path(__file__)
 
-with open(PATH.parent / "prog_info.json") as f:
+with open(PATH.parents[1] / "prog_info.json") as f:
     json_file = json.loads(f.read())
-    
+
     programme_info = json_file["License Plates"]["Programme Info"]
     prog_usage = programme_info["Programme Usage"]
     prog_description = programme_info["Programme Description"]
@@ -17,10 +19,10 @@ with open(PATH.parent / "prog_info.json") as f:
 
 
 parser = argparse.ArgumentParser(
-    prog = "License Plates",
-    usage = prog_usage,
-    description= prog_description,
-    add_help = True,
+    prog="License Plates Library",
+    usage=prog_usage,
+    description=prog_description,
+    add_help=True,
     epilog=prog_epilog,
 )
 
@@ -34,16 +36,18 @@ parser.add_argument(
 )
 
 parser.add_argument(
-    "-v", "--version",
+    "-v", "--version", action="version", version=f"%(prog)s version: {__version__}"
 )
 
 
 def main() -> None:
-    #user_input = parser.parse_args()
-    #args = vars(user_input)
-    
-    # Test Warnings
-    print(lp.get_plate(lp.STD_PATTERNS["AR1"], lp.combinations(lp.STD_PATTERNS["AR1"]) + 1))
+    user_input = parser.parse_args()
+    args = vars(user_input)
+
+    console = Console()
+
+    pass
+
 
 if __name__ == "__main__":
     main()
