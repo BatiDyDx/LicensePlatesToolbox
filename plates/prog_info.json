@@ -1,18 +1,18 @@
 {
     "License Plates": {
         "Programme Info": {
-            "Programme Usage": "python -m lic_plates [-v | --version] [-h | --help] <command> <args>",
-            "Programme Description": "License Plates Tracker provides functions to work with custom or standard license plate patterns",
+            "Programme Usage": "python -m plates [-v | --version] [-h | --help] [-lf | --list-functions] <args> [kwargs ...]",
+            "Programme Description": "License Plates Toolbox provides functions to work with custom or standard license plate patterns",
             "Programme Epilog": "The logic behind this programme asummes that registering of license plates is done in the corresponding order. If this is not the case, then results may not be the ones expected"
         },
         "Function Help Strings": {
-            "combinations": "usage: lic_plates combinations <pattern>",
-            "get_plate_index": "usage: lic_plates get_plate_index <plate>",
-            "get_plate": "usage: lic_plates get_plate <pattern> <n>",
-            "matches_pattern": "usage: lic_plates matches_pattern <pattern> <plate>",
-            "get_pattern": "usage: lic_plates get_pattern <plate>",
-            "max_plate": "usage: lic_plates max_plate <pattern>",
-            "min_plate": "usage: lic_plates min_plate <pattern>"
+            "combinations": "usage: plates combinations <pattern>",
+            "get_plate_index": "usage: plates get_plate_index <plate>",
+            "get_plate": "usage: plates get_plate <pattern> <n>",
+            "matches_pattern": "usage: plates matches_pattern <pattern> <plate>",
+            "get_pattern": "usage: plates get_pattern <plate>",
+            "max_plate": "usage: plates max_plate <pattern>",
+            "min_plate": "usage: plates min_plate <pattern>"
         },
         "Std Plate Patterns": {
             "A": "CDDDCC",

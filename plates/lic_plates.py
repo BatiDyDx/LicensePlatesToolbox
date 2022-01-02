@@ -9,14 +9,12 @@ import pathlib
 from rich.console import Console
 from rich.table import Table
 
-# English alphabet
-ALPHA: List[str] = [chr(i) for i in range(ord("A"), ord("Z") + 1)]
 
-DIGITS: List[str] = list(map(str, range(0, 10)))
-
+LEN_ALPHA: int = ord("Z") - ord("A") + 1  # Length of the english alphabet
+LEN_DIGITS: int = 10
 
 PATH = pathlib.Path(__file__)
-with open(PATH.parents[1] / "prog_info.json") as f:
+with open(PATH.parent / "prog_info.json") as f:
     prog_info = json.load(f)
     STD_PATTERNS = prog_info["License Plates"]["Std Plate Patterns"]
 
@@ -51,79 +49,71 @@ class PlateNotValidException(Exception):
 def value(symb: str) -> int:
     if symb.isdecimal():
         return int(symb)
-    return ALPHA.index(symb)
+    return ord(symb) - ord("A")
 
 
 def symbol_by_value(val: int, symbol_type: str) -> str:
     if symbol_type == "D":
         return str(val)
-    return ALPHA[val]
+    return chr(ord("A") + val)
 
 
-def max_plate(pattern: str) -> str:
+def max_plate(pattern: str) -> Union[str, NoReturn]:
     """
     Takes a pattern and returns the last plate
     corresponding to the pattern.
     Equivalent to replacing all characters in the pattern
     by Z and digits by 9.
-    If pattern is not valid, raises PatternNotValidException
     """
-    valid_pattern(pattern)
     pattern = expand_pattern(pattern)
     plate = re.sub("C", "Z", pattern)
     plate = re.sub("D", "9", plate)
     return plate
 
 
-def min_plate(pattern: str) -> str:
+def min_plate(pattern: str) -> Union[str, NoReturn]:
     """
     Takes a pattern and returns the first plate
     corresponding to the pattern.
     Equivalent to replacing all characters in the pattern
     by A and digits by 0.
-    If pattern is not valid, raises PatternNotValidException
     """
-
+    pattern = expand_pattern(pattern)
     plate = re.sub("C", "A", pattern)
     plate = re.sub("D", "0", plate)
     return plate
 
 
-def combinations(pattern: str) -> int:
+def combinations(pattern: str) -> Union[int, NoReturn]:
     """
     Given a pattern, it returns the number of possible combinations
     that match the pattern.
     If the pattern is not valid, raises PatternNotValidException
     """
-    valid_pattern(pattern)
     pattern = expand_pattern(pattern)
 
-    combinations_per_symbol = [len(ALPHA) if s == "C" else len(DIGITS) for s in pattern]
+    combinations_per_symbol = [LEN_ALPHA if s == "C" else LEN_DIGITS for s in pattern]
     return math.prod(combinations_per_symbol)
 
 
-def valid_pattern(pattern: str) -> Union[bool, NoReturn]:
+def valid_pattern(pattern: str) -> bool:
     """
     Checks if the pattern given is valid for a license plate.
     It is equivalent to checking if the pattern contains characters
     other than 'C' and 'D' or integers.
-    If the pattern is not valid raises a PatternNotValidException
     """
     valid = re.search(r"[^CD\d]", pattern)
-    if valid is not None:
-        raise PatternNotValidException(pattern)
-    return True
+    return valid is None
 
 
-def valid_plate(plate: str) -> Union[bool, NoReturn]:
+def valid_plate(plate: str) -> bool:
     """
-    Takes a license plate, and checks if its format
-    is corect. Returns True if it is, else raises
-    PlateNotValidException
+    Takes a license plate, and returns if its format
+    is corect.
     """
-    if plate.isalnum() and plate.isupper():
-        return True
-    raise PlateNotValidException(plate)
+    # Checks that the plate is an alphanumerical string,
+    # and, if there are letters, they are all upper
+    return plate.isalnum() and (True if plate.isdecimal() else plate.isupper())
 
 
 def factor_by_position(pattern: str) -> List[int]:
@@ -138,14 +128,13 @@ def factor_by_position(pattern: str) -> List[int]:
     [260, 26, 1]
     """
 
-    valid_pattern(pattern)
     pattern = expand_pattern(pattern)
 
     # Each element represents the number of possible symbols for each position
     # i.e. if pattern is "CCCDDC", then combinations_per_symbol is
     # [26, 26, 26, 10, 10, 26]
     combinations_per_symbol: List[int] = [
-        len(ALPHA) if s == "C" else len(DIGITS) for s in pattern
+        LEN_ALPHA if s == "C" else LEN_DIGITS for s in pattern
     ]
 
     # We get the cumulative product of the list
@@ -171,9 +160,9 @@ def matches_pattern(pattern: str, plate: str) -> Union[bool, NoReturn]:
     False
     """
 
-    valid_pattern(pattern)
     pattern = expand_pattern(pattern)
-    valid_plate(plate)
+    if not valid_plate(plate):
+        raise PlateNotValidException(plate)
 
     if len(plate) != len(pattern):
         return False
@@ -194,7 +183,7 @@ def repeat_char_n_times(match: Match[str]) -> str:
     return int(match.group(1)) * str(match.group(2))
 
 
-def expand_pattern(short_pattern: str) -> str:
+def expand_pattern(short_pattern: str) -> Union[str, NoReturn]:
     """
     Given a pattern in the short form, it returns
     its expanded form.
@@ -205,7 +194,8 @@ def expand_pattern(short_pattern: str) -> str:
     >>> expand_pattern("3D2CD")
     "DDDCCD"
     """
-    valid_pattern(short_pattern)
+    if not valid_pattern(short_pattern):
+        raise PatternNotValidException(short_pattern)
     pattern = re.sub(r"(\d)([CD])", repeat_char_n_times, short_pattern)
     return pattern
 
@@ -216,13 +206,14 @@ def get_pattern(plate: str) -> Union[str, NoReturn]:
     its pattern. If the plate is not valid, raises a
     PlateNotValidException
     """
-    valid_plate(plate)
+    if not valid_plate(plate):
+        raise PlateNotValidException(plate)
     pattern = re.sub("[A-Z]", "C", plate)
     pattern = re.sub(r"\d", "D", pattern)
     return pattern
 
 
-def get_plate(pattern: str, n: int) -> str:
+def get_plate(pattern: str, index: int) -> Union[str, NoReturn]:
     """
     Takes a natural number, and an alphanumerical pattern
     representing the type of the plate, and returns the nth plate.
@@ -231,25 +222,26 @@ def get_plate(pattern: str, n: int) -> str:
     given, prints a warning and returns max_plate(pattern)
     """
 
-    valid_pattern(pattern)
+    if index < 1:
+        raise ValueError(f"index must be a positive integer, received {index}")
+
     pattern = expand_pattern(pattern)
-    if n > combinations(pattern):
+    if index > combinations(pattern):
         console = Console(stderr=True, style="red")
         console.print(
-            """WARNING: The input n exceeded the number of
-            combinations possible with the pattern given"""
+            "WARNING: The input index exceeded the number of"
+            "combinations possible with the pattern given"
         )
         return max_plate(pattern)
 
-    n -= 1
+    index -= 1
     position_factors: List[int] = factor_by_position(pattern)
     plate: str = ""
 
     for i in range(len(pattern)):
-        val = n // position_factors[i]
-        symbol = symbol_by_value(val, pattern[i])
-        plate += symbol
-        n %= position_factors[i]
+        val = index // position_factors[i]
+        plate += symbol_by_value(val, pattern[i])
+        index %= position_factors[i]
 
     return plate
 
@@ -292,7 +284,7 @@ def generate_random_pattern(length: int = -1) -> str:
     return pattern
 
 
-def generate_random_plate(pattern: Optional[str] = None) -> str:
+def generate_random_plate(pattern: Optional[str] = None) -> Union[str, NoReturn]:
     """
     Generates a random plate from a given pattern. If pattern
     is not provided, it generates a random pattern from which
@@ -301,16 +293,15 @@ def generate_random_plate(pattern: Optional[str] = None) -> str:
     if pattern is None:
         pattern = generate_random_pattern()
     else:
-        valid_pattern(pattern)
         pattern = expand_pattern(pattern)
 
     plate: str = ""
 
     for symb in pattern:
         if symb == "C":
-            plate += random.choice(ALPHA)
+            plate += chr(random.randrange(ord("A"), ord("A") + LEN_ALPHA))
         else:
-            plate += random.choice(DIGITS)
+            plate += str(random.randrange(0, LEN_DIGITS))
 
     return plate
 
@@ -338,4 +329,5 @@ def std_patterns_table() -> None:
         )
 
     console = Console()
+    print("\n")
     console.print(table)

@@ -1,17 +1,27 @@
-test:
-	pytest src/test_*.py
+SRC = plates
+TEST = tests
+
+.PHONY: tests reports
+
+all:
+	make format
+	make check-format
+	make typecheck
+	pytest $(TEST)/test_*.py -v
+
+tests:
+	pytest $(TEST)/test_*.py
 
 format:
-	black src/license_plates
-	black tests
+	black $(SRC)
+	black $(TEST)
 
 check-format:
-	flake8 src/license_plates
-	flake8 tests
+	flake8 $(SRC) --exclude=__init__.py
 
 typecheck:
-	mypy src/lic_plates.py --strict
+	mypy $(SRC)/*.py --strict
 
-make-reports:
-	mypy src/lic_plates.py --html-report reports/typecheck;
-	pytest src/test_lic_plates.py --html=reports/testing/index.html
+reports:
+	mypy $(SRC)/*.py --html-report reports/typecheck
+	pytest $(TEST)/test_*.py -v --html=reports/testing/index.html
