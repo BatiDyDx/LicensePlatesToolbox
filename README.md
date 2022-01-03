@@ -1,5 +1,7 @@
 # License Plate Toolbox
 
+![Tests](https://github.com/BatiDyDx/LicensePlatesToolbox/actions/workflows/tests.yml/badge.svg)
+
 This project provides a simple way to operate with license plates
 and its patterns.
 
