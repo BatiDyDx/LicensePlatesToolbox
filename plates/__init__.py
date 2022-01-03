@@ -1,6 +1,6 @@
 __version__ = "1.0"
 
-from .lic_plates import (
+from .core import (
     combinations,
     expand_pattern,
     generate_random_pattern,

@@ -4,7 +4,7 @@ import pathlib
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Union
 
 from plates import __version__
-from . import lic_plates
+from . import core
 
 
 PATH = pathlib.Path(__file__)
@@ -86,7 +86,7 @@ def print_function_usage(function_list: Iterable[str]) -> None:
     Prints the string returned by get_help_str for each function in the list
     """
     for func_name in function_list:
-        func: Callable[..., Any] = getattr(lic_plates, func_name)
+        func: Callable[..., Any] = getattr(core, func_name)
         print(get_help_str(func))
 
 
@@ -173,7 +173,7 @@ def main(params: Mapping[str, Any]) -> None:
             "is not supported or not yet been implemented"
         )
 
-    func = getattr(lic_plates, func_name)
+    func = getattr(core, func_name)
     kwargs: Dict[str, Union[str, int]] = dict()
 
     # Add to kwargs only the parameters plate,

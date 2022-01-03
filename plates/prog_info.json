@@ -5,15 +5,6 @@
             "Programme Description": "License Plates Toolbox provides functions to work with custom or standard license plate patterns",
             "Programme Epilog": "The logic behind this programme asummes that registering of license plates is done in the corresponding order. If this is not the case, then results may not be the ones expected"
         },
-        "Function Help Strings": {
-            "combinations": "usage: plates combinations <pattern>",
-            "get_plate_index": "usage: plates get_plate_index <plate>",
-            "get_plate": "usage: plates get_plate <pattern> <n>",
-            "matches_pattern": "usage: plates matches_pattern <pattern> <plate>",
-            "get_pattern": "usage: plates get_pattern <plate>",
-            "max_plate": "usage: plates max_plate <pattern>",
-            "min_plate": "usage: plates min_plate <pattern>"
-        },
         "Std Plate Patterns": {
             "A": "CDDDCC",
             "AD": "CDDDD",

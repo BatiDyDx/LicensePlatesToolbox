@@ -1,6 +1,6 @@
 from typing import Dict
 import pytest
-from plates.lic_plates import *
+from plates.core import *
 from plates.__main__ import (
     parser,
     get_help_str,
