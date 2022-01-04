@@ -5,6 +5,14 @@
 This project provides a simple way to operate with license plates
 and its patterns.
 
+## Installation
+
+To install the module, just run on the command line:
+
+```bash
+pip install plates
+```
+
 ## Module usage
 
 For example, to get the number of possible plates with a given pattern:
@@ -43,7 +51,7 @@ The tools provided can be used directly through the command line, invoking the
 plates module and passing the function name with it's proper positional or
 keyword arguments. Here's an example:
 
-```
+```bash
 python -m plates get_pattern AB5472D
 ```
 
@@ -56,12 +64,12 @@ of supported functions with its arguments and respective types.
 For help using the module via the command line, pass the `-h` or `--help` flag.
 
 Some basics examples are:
-```
+```bash
 python -m plates max_plate --pattern CCDDDC
 ```
-```
+```bash
 python -m plates get_plate -p CCDDDC -i 168700
 ```
-```
+```bash
 python -m plates get_plate_index -pl GA155RT
 ```

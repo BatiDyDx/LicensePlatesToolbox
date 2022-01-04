@@ -3,7 +3,12 @@ import pathlib as _pathlib
 
 _parser = _configparser.ConfigParser()
 _parser.read(_pathlib.Path(__file__).parents[1] / "setup.cfg")
+
 __version__ = _parser.get("metadata", "version")
+
+del _configparser
+del _pathlib
+del _parser
 
 from .core import (
     combinations,
