@@ -3,13 +3,13 @@ import json
 import pathlib
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Union
 
-from plates import __version__
-from . import core
+from plates import __version__ as __version__
+from plates import core
 
 
 PATH = pathlib.Path(__file__)
 
-with open(PATH.parent / "prog_info.json") as f:
+with open(PATH.parent / "data.json") as f:
     json_file = json.loads(f.read())
 
 programme_info = json_file["License Plates"]["Programme Info"]

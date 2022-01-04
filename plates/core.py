@@ -14,7 +14,7 @@ LEN_ALPHA: int = ord("Z") - ord("A") + 1  # Length of the english alphabet
 LEN_DIGITS: int = 10
 
 PATH = pathlib.Path(__file__)
-with open(PATH.parent / "prog_info.json") as f:
+with open(PATH.parent / "data.json") as f:
     prog_info = json.load(f)
     STD_PATTERNS = prog_info["License Plates"]["Std Plate Patterns"]
 

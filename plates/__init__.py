@@ -1,16 +1,6 @@
-import configparser as _configparser
-import pathlib as _pathlib
+__version__ = "0.1.2"
 
-_parser = _configparser.ConfigParser()
-_parser.read(_pathlib.Path(__file__).parents[1] / "setup.cfg")
-
-__version__ = _parser.get("metadata", "version")
-
-del _configparser
-del _pathlib
-del _parser
-
-from .core import (
+from plates.core import (
     combinations,
     expand_pattern,
     generate_random_pattern,
