@@ -1,9 +1,9 @@
+import functools
 import re
 import random
 import itertools
 from typing import List, NoReturn, Optional, TypeVar, Union, Match
 import operator
-import math
 import json
 import pathlib
 from rich.console import Console
@@ -92,8 +92,10 @@ def combinations(pattern: str) -> Union[int, NoReturn]:
     """
     pattern = expand_pattern(pattern)
 
-    combinations_per_symbol = [LEN_ALPHA if s == "C" else LEN_DIGITS for s in pattern]
-    return math.prod(combinations_per_symbol)
+    combinations_per_symbol: List[int] = [
+        LEN_ALPHA if s == "C" else LEN_DIGITS for s in pattern
+    ]
+    return functools.reduce(operator.mul, combinations_per_symbol)
 
 
 def valid_pattern(pattern: str) -> bool:

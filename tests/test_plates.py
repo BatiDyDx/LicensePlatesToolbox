@@ -146,7 +146,7 @@ def test_main(capture_stdout):
 
 def test_get_help_str():
     def function(a: str, b: int, c: float) -> str:
-        return a * (c // b)
+        return a * int(c // b)
 
     assert get_help_str(function) == "\t- function: <a (str)> <b (int)> <c (float)>"
 

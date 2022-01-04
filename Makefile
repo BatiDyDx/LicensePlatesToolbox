@@ -5,7 +5,7 @@ TEST = tests
 
 all:
 	make format
-	make check-format
+	flake8
 	make typecheck
 	pytest $(TEST)/test_*.py
 
@@ -17,8 +17,8 @@ format:
 	black $(TEST)
 
 check-format:
-	flake8 $(SRC) --exclude=__init__.py
-	flake8 $(TEST) --ignore=F403,F405
+	flake8 $(SRC)
+	flake8 $(TEST)
 
 typecheck:
 	mypy $(SRC)/*.py --strict

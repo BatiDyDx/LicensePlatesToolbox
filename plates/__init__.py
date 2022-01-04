@@ -1,4 +1,9 @@
-__version__ = "1.0"
+import configparser as _configparser
+import pathlib as _pathlib
+
+_parser = _configparser.ConfigParser()
+_parser.read(_pathlib.Path(__file__).parents[1] / "setup.cfg")
+__version__ = _parser.get("metadata", "version")
 
 from .core import (
     combinations,
