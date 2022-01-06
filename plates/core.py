@@ -2,7 +2,7 @@ import functools
 import re
 import random
 import itertools
-from typing import List, NoReturn, Optional, TypeVar, Union, Match
+from typing import List, NoReturn, Optional, Union, Match
 import operator
 import json
 import pathlib
@@ -15,11 +15,9 @@ LEN_DIGITS: int = 10
 
 PATH = pathlib.Path(__file__)
 with open(PATH.parent / "data.json") as f:
-    prog_info = json.load(f)
-    STD_PATTERNS = prog_info["License Plates"]["Std Plate Patterns"]
-
-
-T = TypeVar("T")
+    data = json.load(f)
+    STD_PATTERNS = data["License Plates"]["Standard Plate Patterns"]
+    ISO_3166 = data["License Plates"]["ISO 3166"]
 
 
 class PatternNotValidException(Exception):
@@ -317,18 +315,40 @@ def std_patterns_table() -> None:
     """
     table = Table(title="Standard License Plate Patterns")
 
-    table.add_column("Ubication", justify="full", style="bold green")
+    table.add_column("Country/State", style="bold red")
+    table.add_column("ISO 3166", justify="full", style="bold green")
     table.add_column("Pattern", justify="right", style="blue")
     table.add_column("Combinations", justify="right", style="red")
-    table.add_column("Random Example", justify="right", style="bold violet")
+    table.add_column("Example", justify="right", style="bold violet")
 
-    for ubication, pattern in STD_PATTERNS.items():
+    def insert_to_table(ubication: str, iso_code: str) -> None:
+        pattern = STD_PATTERNS[iso_code]
         table.add_row(
             ubication,
+            iso_code,
             pattern,
             str(combinations(pattern)),
             generate_random_plate(pattern),
         )
+
+    for country, iso in ISO_3166.items():
+        # Case that country has unique code,
+        # then iso is the ISO 3166-1 code for the country
+        if isinstance(iso, str):
+            insert_to_table(country, iso)
+        # Case that country has a collection of
+        # codes, associated to countries which
+        # have implemented new patterns
+        elif isinstance(iso, list):
+            for iso_code in iso:
+                insert_to_table(country, iso_code)
+        # Case that country has a dictionary, where
+        # each key is a subdivision of the country
+        # and the value is the ISO 3166-2 code for
+        # the corresponding subdivision
+        elif isinstance(iso, dict):
+            for subdivision, iso_code in iso.items():
+                insert_to_table(subdivision, iso_code)
 
     console = Console()
     print("\n")

@@ -29,9 +29,27 @@ matches_pattern("CCCDDD", "ABC123") # True
 
 The above pattern can be shortened as `"3C3D"`, meaning 3 chars and 3 digits.
 
-Some standard patterns are already given, and can be accessed through 
+In general, every pattern can be shortened following the same pattern.
+
+Some standard patterns are already given, and can be accessed through a
 dictionary:
 
+```python
+# Spain's pattern
+STD_PATTERNS["ES"] # "DDDDCCC"
+
+# Denmark's pattern
+STD_PATTERNS["DK"] # "CCDDDDD"
+```
+
+`STD_PATTERNS.keys()` will show all the patterns provided.
+
+The keys to the dictionary are given by the ISO 3166-1 code for countries,
+with some exceptions, like when a number is appended to it, indicating
+that the country supports more than one pattern, or when a country is
+subdivided. For the latter, the ISO 3166-2 standard is used.
+
+The next code snippet illustrates the idea with an example:
 ```python
 # Argentina's old pattern
 STD_PATTERNS["AR-1"] # "CCCDDD"
@@ -43,7 +61,26 @@ STD_PATTERNS["AR-2"] # "CCDDDCC"
 STD_PATTERNS["US-CA"] # "DCCCDDD"
 ```
 
-`STD_PATTERNS.keys()` will show all the patterns provided.
+One can also look up for the ISO code of a country through
+the ISO_3166 dictionary, in case of not knowing the corresponding
+code assigned to the country. The key, if present, will be the name
+of the country uppercased, and the value can match with three posibilites:
+
+- A string corresponding to the ISO 3166-1 code to the country
+- A list corresponding to multiple codes used
+- A dictionary, whose keys are subdivions of the proper country, and
+the values being the ISO 3166-2 code to the state/subdivision of the country
+
+Following with the examples from above:
+```python
+# Codes associated to Argentina
+ISO_3166["ARGENTINA"] # ["AR-1", "AR-2"]
+
+# Codes associated to California
+ISO_3166["USA"]["CALIFORNIA"] # "US-CA"
+```
+
+So one does not encounter the necessity to know the ISO 3166 codes.
 
 ## Command line usage
 

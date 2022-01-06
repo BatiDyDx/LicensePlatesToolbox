@@ -12,10 +12,10 @@ PATH = pathlib.Path(__file__)
 with open(PATH.parent / "data.json") as f:
     json_file = json.loads(f.read())
 
-programme_info = json_file["License Plates"]["Programme Info"]
-USAGE: str = programme_info["Programme Usage"]
-DESCRIPTION: str = programme_info["Programme Description"]
-EPILOG: str = programme_info["Programme Epilog"]
+program_info = json_file["License Plates"]["Program Info"]
+USAGE: str = program_info["Program Usage"]
+DESCRIPTION: str = program_info["Program Description"]
+EPILOG: str = program_info["Program Epilog"]
 
 
 FUNCTION_NAMES: List[str] = [

@@ -1,4 +1,3 @@
-from typing import Dict
 import pytest
 from plates.core import *
 from plates.__main__ import (
@@ -52,6 +51,12 @@ def test_value(symb, val):
 )
 def test_symbol_by_value(value, value_type, symb):
     assert symbol_by_value(value, value_type) == symb
+
+
+def test_ISO_3166():
+    assert "US-CA" == ISO_3166["USA"]["CALIFORNIA"]
+    assert "AR-1" == ISO_3166["ARGENTINA"][0]
+    assert STD_PATTERNS["ES"] == STD_PATTERNS[ISO_3166["SPAIN"]]
 
 
 def test_valid_pattern():
@@ -162,7 +167,7 @@ def test_print_function_usage(capture_stdout):
 
 
 def test_call():
-    def function(x: str, y: str, z: str) -> Dict[str, int]:
+    def function(x: str, y: str, z: str) -> dict[str, int]:
         return {x: 1, y: 2, z: 3}
 
     args = ("b",)

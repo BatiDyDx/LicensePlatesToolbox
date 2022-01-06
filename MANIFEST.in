@@ -1,5 +1,4 @@
 include *.txt
-include Makefile
 include tox.ini
 recursive-include plates *.json
-recursive-include tests *.py
+recursive-include plates *.typed

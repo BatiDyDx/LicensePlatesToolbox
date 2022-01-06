@@ -1,34 +1,32 @@
 {
     "License Plates": {
-        "Programme Info": {
-            "Programme Usage": "python -m plates [-v | --version] [-h | --help] [-lf | --list-functions] <args> [kwargs ...]",
-            "Programme Description": "License Plates Toolbox provides functions to work with custom or standard license plate patterns",
-            "Programme Epilog": "The logic behind this programme asummes that registering of license plates is done in the corresponding order. If this is not the case, then results may not be the ones expected"
+        "Program Info": {
+            "Program Usage": "python -m plates [-v | --version] [-h | --help] [-lf | --list-functions] <args> [kwargs ...]",
+            "Program Description": "License Plates Toolbox provides functions to work with custom or standard license plate patterns",
+            "Program Epilog": "The logic behind this program asummes that registering of license plates is done in the corresponding order. If this is not the case, then results may not be the ones expected"
         },
-        "Std Plate Patterns": {
-            "A": "CDDDCC",
+        "Standard Plate Patterns": {
             "AD": "CDDDD",
             "AR-1": "CCCDDD",
             "AR-2": "CCDDDCC",
             "BE": "DCCCDDD",
             "BR-1": "CCCDDDD",
             "BR-2": "CCCDCDD",
-            "D": "CCCCDDD",
+            "CA-AB": "CCCDDDD",
+            "CA-MB": "CCDDDC",
+            "CA-ON": "CCCCDDD",
             "DK": "CCDDDDD",
-            "E": "DDDDCCC",
-            "F": "CCDDDCC",
-            "FIN": "CCCDDD",
+            "ES": "DDDDCCC",
+            "FI": "CCCDDD",
             "GB": "CCDDCCC",
             "GR": "CCCDDDD",
             "HR": "CCDDDCC",
             "IT": "CCDDDCC",
-            "N": "CCDDDDD",
             "NL": "CCDDDC",
-            "P": "DDDDCC",
-            "S": "CCCDDD",
+            "SE": "CCCDDD",
             "US-CA": "DCCCDDD",
             "US-FL": "CCCCDD",
-            "US-ILL": "DDCCCCC",
+            "US-IL": "DDCCCCC",
             "US-MA": "DDDD",
             "US-MS": "CCCDDD",
             "US-NJ": "CDDCCC",
@@ -40,6 +38,42 @@
             "US-TX": "CCCDDDD",
             "US-VA": "CCCDDDD",
             "US-WA": "CCCDDDD"
+        },
+        "ISO 3166": {
+            "ANDORRA": "AD",
+            "ARGENTINA": ["AR-1", "AR-2"],
+            "BELGIUM": "BE",
+            "BRAZIL": ["BR-1", "BR-2"],
+            "CANADA": {
+                "ALBERTA": "CA-AB",
+                "MANITOBA": "CA-MB",
+                "ONTARIO": "CA-ON"
+            },
+            "DEMARKK": "DK",
+            "SPAIN": "ES",
+            "FINLAND": "FI",
+            "GREAT BRITAIN": "GB",
+            "GREECE": "GR",
+            "CROATIA": "HR",
+            "ITALY": "IT",
+            "NETHERLANDS": "NL",
+            "SWEDEN": "SE",
+            "USA": {
+                "CALIFORNIA": "US-CA",
+                "FLORIDA": "US-FL",
+                "ILLINOIS": "US-IL",
+                "MASSACHUSETTS": "US-MA",
+                "MISSISSIPPI": "US-MS",
+                "NEW JERSEY": "US-NJ",
+                "NEVADA": "US-NV",
+                "NEW YORK": "US-NY",
+                "OHIO": "US-OH",
+                "OREGON": "US-OR",
+                "PENNSYLVANIA": "US-PA",
+                "TEXAS": "US-TX",
+                "VIRGINIA": "US-VA",
+                "WASHINGTON": "US-WA"
+            }
         }
     }
 }
